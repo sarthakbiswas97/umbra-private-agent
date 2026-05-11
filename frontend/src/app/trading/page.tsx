@@ -49,7 +49,12 @@ export default function TradingPage() {
 
   return (
     <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-      <h1 className="text-xl font-bold text-white mb-6">Trading</h1>
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold text-white">Confidential Trading</h1>
+        <p className="text-xs text-gray-500 mt-1">
+          AI prediction &rarr; Risk check &rarr; Umbra confidential transfer. Balances stay encrypted.
+        </p>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         {/* Prediction */}
@@ -82,7 +87,13 @@ export default function TradingPage() {
               </div>
             </div>
           ) : (
-            <p className="text-xs text-gray-500">Awaiting prediction...</p>
+            <div className="text-center py-6">
+              <div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center mx-auto mb-2">
+                <span className="text-gray-600 text-sm">?</span>
+              </div>
+              <p className="text-xs text-gray-500">No prediction yet</p>
+              <p className="text-[10px] text-gray-600 mt-1">Predictions update every 5 seconds from the AI model</p>
+            </div>
           )}
         </div>
 

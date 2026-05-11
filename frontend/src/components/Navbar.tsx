@@ -8,6 +8,7 @@ const links = [
   { href: "/backtest", label: "Backtest" },
   { href: "/simulation", label: "Live Sim" },
   { href: "/privacy", label: "Privacy Demo" },
+  { href: "/trading", label: "Trading" },
 ];
 
 export default function Navbar() {

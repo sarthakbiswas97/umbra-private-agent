@@ -101,10 +101,18 @@ export default function PrivacyPage() {
 
       {/* Viewing key input for Auditor */}
       {view === "Auditor" && !keyValid && (
+        <>
+        <div className="bg-indigo-500/5 border border-indigo-500/20 rounded-2xl p-4 mb-4">
+          <p className="text-xs text-indigo-300">
+            <strong>How viewing keys work:</strong> The fund manager derives a time-scoped key using Poseidon hashing.
+            The auditor receives a monthly key that grants read-only access to balances and transfers for that period only.
+            No access to the master key, no access to other months.
+          </p>
+        </div>
         <div className="bg-gray-900 border border-indigo-500/20 rounded-2xl p-5 mb-6">
           <h3 className="text-sm font-semibold text-indigo-400 mb-2">Enter Viewing Key</h3>
           <p className="text-[10px] text-gray-500 mb-3">
-            The fund manager shared a monthly viewing key with you. Paste it below to decrypt January 2025 activity.
+            Paste the monthly viewing key shared by the fund manager to decrypt January 2025 activity.
           </p>
           <div className="flex gap-2">
             <input
@@ -126,6 +134,7 @@ export default function PrivacyPage() {
             Try any string 8+ characters. In production, this is a Poseidon-derived key from the fund manager.
           </p>
         </div>
+        </>
       )}
 
       {view === "Auditor" && keyValid && (

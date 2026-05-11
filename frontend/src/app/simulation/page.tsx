@@ -251,7 +251,10 @@ export default function SimulationPage() {
             </div>
           )) : (
             <div className="text-center w-full py-6 text-gray-600 text-xs">
-              Click "Run Cycle" or wait for auto-run to start the trading pipeline
+              <div className="flex items-center justify-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
+                Waiting for next auto-cycle (runs every 8 seconds)...
+              </div>
             </div>
           )}
         </div>
