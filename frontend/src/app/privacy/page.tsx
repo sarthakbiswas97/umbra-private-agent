@@ -52,7 +52,7 @@ export default function PrivacyPage() {
       const res = await fetch("http://localhost:8002/viewing-keys/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ scope: "monthly", year: 2025, month: 1 }),
+        body: JSON.stringify({ scope: "monthly", year: 2026, month: 1 }),
         signal: AbortSignal.timeout(3000),
       });
       const data = await res.json();
@@ -112,14 +112,14 @@ export default function PrivacyPage() {
         <div className="bg-gray-900 border border-indigo-500/20 rounded-2xl p-5 mb-6">
           <h3 className="text-sm font-semibold text-indigo-400 mb-2">Enter Viewing Key</h3>
           <p className="text-[10px] text-gray-500 mb-3">
-            Paste the monthly viewing key shared by the fund manager to decrypt January 2025 activity.
+            Paste the monthly viewing key shared by the fund manager to decrypt January 2026 activity.
           </p>
           <div className="flex gap-2">
             <input
               type="text"
               value={viewingKey}
               onChange={(e) => setViewingKey(e.target.value)}
-              placeholder="Paste viewing key (e.g. vk_monthly_2025_01_a7b3c9...)"
+              placeholder="Paste viewing key (e.g. vk_monthly_2026_01_a7b3c9...)"
               className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-xs text-white placeholder-gray-600 focus:outline-none focus:ring-1 focus:ring-indigo-500 font-mono"
             />
             <button
@@ -143,7 +143,7 @@ export default function PrivacyPage() {
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-indigo-400" />
               <span className="text-xs text-indigo-400 font-medium">
-                {demoMode ? "Demo mode -- start Umbra service for real key generation" : "Viewing key accepted -- showing January 2025 data"}
+                {demoMode ? "Demo mode -- start Umbra service for real key generation" : "Viewing key accepted -- showing January 2026 data"}
               </span>
             </div>
             <button onClick={() => { setKeyValid(false); setViewingKey(""); }} className="text-[10px] text-gray-500 hover:text-white">
@@ -217,8 +217,8 @@ export default function PrivacyPage() {
         <div className="flex items-center justify-center gap-0 py-4">
           {[
             { label: "Master Key", sub: "Full access", scope: "All time", color: "border-red-500/40 bg-red-500/10", text: "text-red-400" },
-            { label: "Yearly Key", sub: "2025", scope: "1 year", color: "border-amber-500/40 bg-amber-500/10", text: "text-amber-400" },
-            { label: "Monthly Key", sub: "Jan 2025", scope: "1 month", color: "border-emerald-500/40 bg-emerald-500/10", text: "text-emerald-400" },
+            { label: "Yearly Key", sub: "2026", scope: "1 year", color: "border-amber-500/40 bg-amber-500/10", text: "text-amber-400" },
+            { label: "Monthly Key", sub: "Jan 2026", scope: "1 month", color: "border-emerald-500/40 bg-emerald-500/10", text: "text-emerald-400" },
             { label: "Daily Key", sub: "Jan 15", scope: "1 day", color: "border-indigo-500/40 bg-indigo-500/10", text: "text-indigo-400" },
           ].map((k, i) => (
             <div key={i} className="flex items-center">
