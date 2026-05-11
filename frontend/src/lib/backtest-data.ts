@@ -81,12 +81,12 @@ export const EQUITY_CURVE = generateEquityCurve();
 
 // Sample trades for the trade log
 export const SAMPLE_TRADES = [
-  { id: 1, action: "BUY", price: 168.22, size: 1.95, confidence: 0.68, result: "win", pnl: 6.49, reason: "MACD crossover + momentum" },
-  { id: 2, action: "SELL", price: 171.55, size: 1.95, confidence: 0.61, result: "win", pnl: 6.49, reason: "Reversal signal DOWN 61%" },
-  { id: 3, action: "BUY", price: 170.12, size: 1.84, confidence: 0.72, result: "win", pnl: 4.29, reason: "Strong RSI divergence" },
-  { id: 4, action: "SELL", price: 172.45, size: 1.84, confidence: 0.58, result: "win", pnl: 4.29, reason: "Take profit at 3.8%" },
-  { id: 5, action: "BUY", price: 173.88, size: 2.1, confidence: 0.65, result: "loss", pnl: -3.15, reason: "MACD histogram positive" },
-  { id: 6, action: "SELL", price: 172.38, size: 2.1, confidence: 0.55, result: "loss", pnl: -3.15, reason: "Stop loss at -2%" },
-  { id: 7, action: "BUY", price: 169.44, size: 1.9, confidence: 0.71, result: "win", pnl: 8.17, reason: "Bollinger band bounce" },
-  { id: 8, action: "SELL", price: 173.74, size: 1.9, confidence: 0.63, result: "win", pnl: 8.17, reason: "Take profit at 4%" },
+  { id: 1, action: "BUY", price: 90.22, size: 1.95, confidence: 0.68, result: "win", pnl: 6.49, reason: "MACD crossover + momentum" },
+  { id: 2, action: "SELL", price: 93.55, size: 1.95, confidence: 0.61, result: "win", pnl: 6.49, reason: "Reversal signal DOWN 61%" },
+  { id: 3, action: "BUY", price: 92.12, size: 1.84, confidence: 0.72, result: "win", pnl: 4.29, reason: "Strong RSI divergence" },
+  { id: 4, action: "SELL", price: 94.45, size: 1.84, confidence: 0.58, result: "win", pnl: 4.29, reason: "Take profit at 3.8%" },
+  { id: 5, action: "BUY", price: 95.88, size: 2.1, confidence: 0.65, result: "loss", pnl: -3.15, reason: "MACD histogram positive" },
+  { id: 6, action: "SELL", price: 94.38, size: 2.1, confidence: 0.55, result: "loss", pnl: -3.15, reason: "Stop loss at -2%" },
+  { id: 7, action: "BUY", price: 91.44, size: 1.9, confidence: 0.71, result: "win", pnl: 8.17, reason: "Bollinger band bounce" },
+  { id: 8, action: "SELL", price: 95.74, size: 1.9, confidence: 0.63, result: "win", pnl: 8.17, reason: "Take profit at 4%" },
 ];

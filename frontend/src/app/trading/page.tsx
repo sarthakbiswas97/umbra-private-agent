@@ -13,7 +13,7 @@ export default function TradingPage() {
     if (data.demo) {
       // Simulate a trade result in demo mode
       await new Promise((r) => setTimeout(r, 1500));
-      const price = data.agent?.latest_price || 172.45;
+      const price = data.agent?.latest_price || 93.0;
       setLastResult({
         verdict: "APPROVED",
         risk_passed: true,

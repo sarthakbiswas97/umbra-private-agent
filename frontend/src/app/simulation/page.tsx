@@ -69,8 +69,8 @@ export default function SimulationPage() {
       }
     } catch {
       // Use mock price on failure
-      setPrice((prev) => prev > 0 ? prev + (Math.random() - 0.5) * 0.5 : 172.5);
-      const p = price || 172.5;
+      setPrice((prev) => prev > 0 ? prev + (Math.random() - 0.5) * 0.5 : 93.0);
+      const p = price || 93.0;
       priceRef.current = [...priceRef.current.slice(-59), p];
       setPriceHistory((prev) => [...prev.slice(-59), p]);
     }

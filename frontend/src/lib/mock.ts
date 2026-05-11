@@ -24,7 +24,7 @@ const MOCK_BALANCES: EncryptedBalance[] = [
 export function getMockData(): UmbraData {
   const now = Date.now();
   const jitter = Math.sin(now / 10000) * 3;
-  const price = 172.45 + jitter;
+  const price = 93.0 + jitter;
 
   return {
     agent: {
@@ -49,10 +49,10 @@ export function getMockData(): UmbraData {
         asset: "SOL",
         side: "LONG",
         size: 1.842,
-        entry_price: 170.12,
+        entry_price: 91.50,
         current_price: price,
-        unrealized_pnl: parseFloat(((price - 170.12) * 1.842).toFixed(2)),
-        unrealized_pnl_pct: parseFloat(((price - 170.12) / 170.12).toFixed(4)),
+        unrealized_pnl: parseFloat(((price - 91.50) * 1.842).toFixed(2)),
+        unrealized_pnl_pct: parseFloat(((price - 91.50) / 91.50).toFixed(4)),
       },
       capital: { current: 10243.18, base: 10000, peak: 10380.0 },
       risk: {
@@ -75,7 +75,7 @@ export function getMockData(): UmbraData {
           success: true,
           action: "BUY",
           amount: 1.842,
-          price: 170.12,
+          price: 91.50,
           reason: "Entry signal: UP with 72% confidence (size: 3.1%)",
           pnl: null,
           umbra_signature: "4hExLDN83ZnYM7DP2s8u9AAqRLy8jmWusJu5h2uBphiV",
