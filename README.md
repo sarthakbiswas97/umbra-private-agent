@@ -275,3 +275,25 @@ Sharing a monthly key does NOT expose the yearly key or other months. Each level
 - **Frontend**: Next.js 16, React 19, Tailwind CSS 4, Recharts
 - **On-chain**: Anchor 0.31 (Rust), Solana Devnet
 - **Infrastructure**: PostgreSQL, Redis, Docker Compose
+
+## Why This Matters (Commercial Potential)
+
+MEV and front-running extract an estimated $1B+ annually from DeFi users. For institutional and algorithmic traders, public on-chain activity is a dealbreaker -- competitors copy signals, front-runners extract value, and investors panic on unrealized losses.
+
+This agent solves the problem at the protocol level. Not by hiding in a private mempool (which centralizes trust), but by encrypting the balances themselves. The trading strategy, position sizes, and P&L are invisible to observers while remaining auditable by authorized parties.
+
+**Target users:**
+- AI fund managers who need strategy confidentiality
+- Institutional DeFi participants requiring compliance without public exposure
+- Algorithmic traders whose edge depends on signal privacy
+
+## Roadmap
+
+- **Private swaps**: Route trades through Umbra-compatible DEX pools for fully confidential swap execution (amounts AND routing hidden)
+- **Multi-asset shielding**: Extend beyond SOL/USDC to shield any SPL token on Solana
+- **Cross-fund viewing keys**: Enable fund-of-funds structures where each allocator gets scoped visibility into their portion only
+- **Mainnet deployment**: Migrate from devnet to mainnet with real Umbra confidential transfers
+
+---
+
+Built for the **Frontier Hackathon** -- Umbra Track on Superteam Earn.
