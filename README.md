@@ -48,8 +48,8 @@ The frontend is deployed and fully interactive without any backend:
 |------|-------------|
 | **/** | Landing -- problem/solution split, architecture overview, on-chain proof links |
 | **/backtest** | Equity curve, win rate (54.3%), Sharpe ratio (1.47), feature importance chart, sample trades |
-| **/simulation** | Real-time SOL price from Jupiter, animated AI pipeline (predict -> risk -> Umbra transfer), paper trading with P&L, public vs private split view |
-| **/privacy** | Three-tab toggle (Public/Owner/Auditor) -- encrypted balances with decrypt button, viewing key input, Poseidon hierarchy diagram |
+| **/simulation** | Real-time SOL price from Jupiter, animated AI pipeline (predict -> risk -> Umbra transfer), paper trading with P&L, public vs private split view, clickable Explorer links on trade signatures |
+| **/privacy** | Three-tab toggle (Public/Owner/Auditor) -- encrypted balances, viewing key calls real Umbra service (demo mode fallback), Poseidon hierarchy diagram |
 
 ## How Umbra Integration Works (Core, Not Bolt-On)
 
@@ -144,9 +144,9 @@ The Umbra SDK is TypeScript-only. Rather than trying to call it from Python, we 
 
 ### Frontend Demo
 - **Backtest**: equity curve, metrics, feature importance, trade log
-- **Live Simulation**: real SOL price from Jupiter, animated pipeline, paper trading
-- **Privacy Demo**: public/owner/auditor toggle, viewing key input, Poseidon hierarchy
-- Works standalone -- no backend required for demo
+- **Live Simulation**: real SOL price from Jupiter, animated pipeline, paper trading, clickable Solana Explorer links on each trade signature
+- **Privacy Demo**: public/owner/auditor toggle, viewing key calls real Umbra service (falls back to demo mode), Poseidon hierarchy
+- Works standalone -- no backend required for demo (labels demo mode clearly)
 
 ## Deployed Program IDs
 
