@@ -1,0 +1,58 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: umbra_agent
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6380:6379"
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8001:8001"
+    depends_on:
+      - postgres
+      - redis
+      - umbra-service
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/umbra_agent
+      REDIS_URL: redis://redis:6379
+      UMBRA_SERVICE_URL: http://umbra-service:8002
+    volumes:
+      - ./ml:/ml:ro
+
+  umbra-service:
+    build:
+      context: ./umbra-service
+    ports:
+      - "8002:8002"
+    env_file:
+      - .env
+    environment:
+      UMBRA_SERVICE_PORT: "8002"
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8001
+
+volumes:
+  pgdata:

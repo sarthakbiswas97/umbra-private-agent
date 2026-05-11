@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+venv/
+.venv/
+*.egg
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node
+node_modules/
+umbra-service/node_modules/
+frontend/node_modules/
+frontend/.next/
+
+# Solana / Anchor
+target/
+.anchor/
+test-ledger/
+
+# ML artifacts (keep model bundles, exclude large data)
+ml/__pycache__/
+ml/experiments/
+ml/candles.csv
+ml/candles_3months.csv
+ml/dataset/
+ml/models/model_bundle_v*.joblib
+ml/models/model_lightgbm.joblib
+ml/models/model_logisticregression.joblib
+ml/models/model_xgboost.joblib
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Docker
+docker-compose.override.yml
