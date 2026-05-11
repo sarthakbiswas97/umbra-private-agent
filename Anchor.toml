@@ -1,0 +1,18 @@
+[toolchain]
+
+[features]
+resolution = true
+skip-lint = false
+
+[programs.devnet]
+umbra_logs = "3XzQNmWuWBXTSisTv6xGomsxr38qM1De7nUdvzrxMqzS"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "Devnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "npx mocha --require tsx --timeout 1000000 tests/**/*.ts"
