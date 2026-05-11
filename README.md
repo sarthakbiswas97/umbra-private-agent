@@ -2,6 +2,8 @@
 
 An autonomous AI trading agent that uses [Umbra SDK](https://sdk.umbraprivacy.com) to execute trades with on-chain privacy on Solana. Trade amounts are hidden via confidential transfers, portfolio balances are encrypted, and viewing keys enable selective disclosure for compliance and investor auditing.
 
+**[Live Demo](https://frontend-theta-five-61.vercel.app)** | **[Deployed Program](https://explorer.solana.com/address/3XzQNmWuWBXTSisTv6xGomsxr38qM1De7nUdvzrxMqzS?cluster=devnet)**
+
 ## The Problem
 
 When an AI fund manager trades on-chain, everyone can see:
@@ -12,6 +14,13 @@ When an AI fund manager trades on-chain, everyone can see:
 
 Competitors front-run. Investors panic-sell on unrealized losses. The agent's alpha decays because its strategy is public.
 
+```
+Solana Explorer (today):
+  Transfer: 2,847.31 USDC to DeFi Pool
+  From: Av6h...FgYqo
+  Amount: VISIBLE TO EVERYONE
+```
+
 ## The Solution: Umbra Privacy
 
 Umbra provides three privacy primitives that solve this:
@@ -21,6 +30,26 @@ Umbra provides three privacy primitives that solve this:
 2. **Confidential Transfers** -- When the AI decides to buy or sell, the transfer amount is hidden on-chain. Observers see that a transfer happened, but not how much. This prevents front-running and copy-trading.
 
 3. **Viewing Keys** -- Hierarchical Poseidon-derived keys (Master -> Yearly -> Monthly -> Daily) that grant read-only access to UTXO activity within a specific time scope. Fund investors get monthly viewing keys to audit performance without exposing the full portfolio to the public.
+
+```
+Solana Explorer (with Umbra):
+  Transfer: ***** USDC (confidential)
+  From: Shielded
+  Amount: HIDDEN VIA UMBRA MPC
+```
+
+## Live Demo
+
+The frontend is deployed and fully interactive without any backend:
+
+**https://frontend-theta-five-61.vercel.app**
+
+| Page | What You See |
+|------|-------------|
+| **/** | Landing -- problem/solution split, architecture overview, on-chain proof links |
+| **/backtest** | Equity curve, win rate (54.3%), Sharpe ratio (1.47), feature importance chart, sample trades |
+| **/simulation** | Real-time SOL price from Jupiter, animated AI pipeline (predict -> risk -> Umbra transfer), paper trading with P&L, public vs private split view |
+| **/privacy** | Three-tab toggle (Public/Owner/Auditor) -- encrypted balances with decrypt button, viewing key input, Poseidon hierarchy diagram |
 
 ## How Umbra Integration Works (Core, Not Bolt-On)
 
@@ -57,19 +86,18 @@ Every trade the agent executes flows through Umbra's confidential transfer pipel
 | - ML Prediction  |     | - @umbra-privacy |     | DSuKkyqGVGgo... |
 | - Risk Guardian  |     |   /sdk           |     |                 |
 | - Trade Executor |     | - Deposit        |     | Logs Program:   |
-| - Position Mgr   |     | - Withdraw       |     | UMBRALog...     |
+| - Position Mgr   |     | - Withdraw       |     | 3XzQ...Mqzs     |
 +------------------+     | - Balance Query  |     +-----------------+
         |                 | - Viewing Keys   |
         v                 +------------------+
 +------------------+
 |  Next.js Frontend|
-|  (:3000)         |
+|  (Vercel)        |
 |                  |
-| - Encrypted      |
-|   Balance View   |
-| - Decrypt Button |
+| - Backtest       |
+| - Live Simulation|
+| - Privacy Demo   |
 | - Viewing Keys   |
-| - Privacy Pipeline|
 +------------------+
 ```
 
@@ -79,7 +107,7 @@ Every trade the agent executes flows through Umbra's confidential transfer pipel
 |---------|------|------|---------|
 | Backend | Python/FastAPI | 8001 | ML prediction, risk management, trade orchestration |
 | Umbra Service | Node.js/Express | 8002 | Wraps @umbra-privacy/sdk for confidential operations |
-| Frontend | Next.js/React | 3000 | Dashboard with encrypted balance display and viewing keys |
+| Frontend | Next.js/React | Vercel | Interactive demo with backtest, simulation, privacy demo |
 
 ### Why a TypeScript Sidecar?
 
@@ -101,22 +129,31 @@ The Umbra SDK is TypeScript-only. Rather than trying to call it from Python, we 
 
 ### Umbra Privacy (Core Integration)
 - Encrypted portfolio balances (X25519 shared mode)
-- Confidential deposits and withdrawals
-- Hierarchical viewing key generation
-- On-chain transfer logging with Umbra program reference
+- Confidential deposits and withdrawals via Umbra SDK
+- Hierarchical viewing key generation (yearly/monthly/daily)
+- On-chain event logging with Umbra program reference
+- SOL-efficient logging: events cost ~0.000005 SOL per log (no PDA per trade)
 
-### Dashboard
-- Encrypted balance cards with "Decrypt" button
-- Viewing key generation and management
-- Confidential trade pipeline visualization
-- Real-time risk state monitoring
+### On-Chain Program (Anchor)
+- `initialize_agent` -- one-time PDA creation
+- `log_decision` -- event-based decision logging (no rent cost)
+- `log_confidential_transfer` -- event-based transfer logging (no rent cost)
+- `record_decision` -- optional permanent PDA for milestone decisions
+- `close_record` -- reclaim rent from permanent records
+- 8/8 tests passing on devnet
+
+### Frontend Demo
+- **Backtest**: equity curve, metrics, feature importance, trade log
+- **Live Simulation**: real SOL price from Jupiter, animated pipeline, paper trading
+- **Privacy Demo**: public/owner/auditor toggle, viewing key input, Poseidon hierarchy
+- Works standalone -- no backend required for demo
 
 ## Deployed Program IDs
 
 | Program | Network | Address |
 |---------|---------|---------|
-| Umbra Privacy | Devnet | `DSuKkyqGVGgo4QtPABfxKJKygUDACbUhirnuv63mEpAJ` |
-| Umbra Logs | Devnet | `3XzQNmWuWBXTSisTv6xGomsxr38qM1De7nUdvzrxMqzS` |
+| Umbra Privacy | Devnet | [`DSuKkyqGVGgo4QtPABfxKJKygUDACbUhirnuv63mEpAJ`](https://explorer.solana.com/address/DSuKkyqGVGgo4QtPABfxKJKygUDACbUhirnuv63mEpAJ?cluster=devnet) |
+| Umbra Logs | Devnet | [`3XzQNmWuWBXTSisTv6xGomsxr38qM1De7nUdvzrxMqzS`](https://explorer.solana.com/address/3XzQNmWuWBXTSisTv6xGomsxr38qM1De7nUdvzrxMqzS?cluster=devnet) |
 
 ## Setup
 
@@ -163,7 +200,13 @@ cp .env.example .env
 docker compose up
 ```
 
-Open http://localhost:3000 to see the dashboard.
+### Frontend Only (demo mode)
+
+```bash
+cd frontend && npm install && npm run dev
+```
+
+Opens at http://localhost:3000 with simulated data. No backend needed.
 
 ## How Viewing Keys Enable Auditable Privacy
 
@@ -230,5 +273,5 @@ Sharing a monthly key does NOT expose the yearly key or other months. Each level
 - **Backend**: FastAPI, SQLAlchemy (async), Redis, aiohttp
 - **Umbra**: @umbra-privacy/sdk, Express, TypeScript
 - **Frontend**: Next.js 16, React 19, Tailwind CSS 4, Recharts
-- **On-chain**: Anchor (Rust), Solana Devnet
+- **On-chain**: Anchor 0.31 (Rust), Solana Devnet
 - **Infrastructure**: PostgreSQL, Redis, Docker Compose
