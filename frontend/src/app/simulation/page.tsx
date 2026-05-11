@@ -308,7 +308,8 @@ export default function SimulationPage() {
       {/* Trade log */}
       {trades.length > 0 && (
         <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5">
-          <h2 className="text-sm font-semibold text-white mb-3">Trade Log (Confidential)</h2>
+          <h2 className="text-sm font-semibold text-white mb-1">Trade Log (Confidential)</h2>
+          <p className="text-[10px] text-gray-600 mb-3">In demo mode, signatures are simulated. Start backend for real on-chain transactions.</p>
           <div className="space-y-2">
             {trades.map((t) => (
               <div key={t.id} className="flex items-center justify-between bg-gray-800/50 rounded-lg px-3 py-2.5">
@@ -324,9 +325,15 @@ export default function SimulationPage() {
                       {t.pnl >= 0 ? "+" : ""}${t.pnl.toFixed(2)}
                     </span>
                   )}
-                  <span className="text-[10px] px-1.5 py-0.5 bg-violet-500/15 text-violet-400 rounded font-mono">
+                  <a
+                    href={`https://explorer.solana.com/tx/${t.umbraSig}?cluster=devnet`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] px-1.5 py-0.5 bg-violet-500/15 text-violet-400 hover:text-violet-300 rounded font-mono"
+                    title="Simulated signature -- start backend for real on-chain transactions"
+                  >
                     {t.umbraSig.slice(0, 8)}...
-                  </span>
+                  </a>
                 </div>
               </div>
             ))}

@@ -43,13 +43,30 @@ export default function PrivacyPage() {
   const [keyValid, setKeyValid] = useState(false);
   const [decrypting, setDecrypting] = useState(false);
 
-  function handleKeySubmit() {
-    if (viewingKey.length >= 8) {
-      setDecrypting(true);
-      setTimeout(() => {
-        setKeyValid(true);
-        setDecrypting(false);
-      }, 1200);
+  const [demoMode, setDemoMode] = useState(false);
+
+  async function handleKeySubmit() {
+    if (viewingKey.length < 8) return;
+    setDecrypting(true);
+    try {
+      const res = await fetch("http://localhost:8002/viewing-keys/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ scope: "monthly", year: 2025, month: 1 }),
+        signal: AbortSignal.timeout(3000),
+      });
+      const data = await res.json();
+      if (data.viewingKey) {
+        setViewingKey(data.viewingKey);
+      }
+      setKeyValid(true);
+      setDemoMode(false);
+    } catch {
+      // Umbra service not running -- fall back to demo mode
+      setKeyValid(true);
+      setDemoMode(true);
+    } finally {
+      setDecrypting(false);
     }
   }
 
@@ -116,7 +133,9 @@ export default function PrivacyPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-indigo-400" />
-              <span className="text-xs text-indigo-400 font-medium">Viewing key accepted -- showing January 2025 data</span>
+              <span className="text-xs text-indigo-400 font-medium">
+                {demoMode ? "Demo mode -- start Umbra service for real key generation" : "Viewing key accepted -- showing January 2025 data"}
+              </span>
             </div>
             <button onClick={() => { setKeyValid(false); setViewingKey(""); }} className="text-[10px] text-gray-500 hover:text-white">
               Revoke
