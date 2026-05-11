@@ -10,8 +10,37 @@ export default function TradingPage() {
 
   async function submitDemoTrade() {
     setSubmitting(true);
-    const result = await postJSON(`${API}/trade/submit-demo`, {});
-    setLastResult(result);
+    if (data.demo) {
+      // Simulate a trade result in demo mode
+      await new Promise((r) => setTimeout(r, 1500));
+      const price = data.agent?.latest_price || 172.45;
+      setLastResult({
+        verdict: "APPROVED",
+        risk_passed: true,
+        trade: {
+          direction: data.prediction?.prediction?.direction || "UP",
+          price,
+          confidence: data.prediction?.prediction?.confidence || 0.72,
+          position_bps: 300,
+          daily_pnl_bps: 89,
+          drawdown_bps: 130,
+          message_hash: Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join(""),
+        },
+        umbra: {
+          success: true,
+          queue_signature: Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join(""),
+        },
+        privacy: {
+          program_id: "DSuKkyqGVGgo4QtPABfxKJKygUDACbUhirnuv63mEpAJ",
+          network: "devnet",
+          transfer_type: "confidential",
+          amount_hidden: true,
+        },
+      });
+    } else {
+      const result = await postJSON(`${API}/trade/submit-demo`, {});
+      setLastResult(result);
+    }
     setSubmitting(false);
   }
 
