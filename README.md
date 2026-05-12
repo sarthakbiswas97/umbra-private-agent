@@ -216,7 +216,7 @@ The key innovation is **selective transparency**: the fund's portfolio is privat
 Fund Manager                    Investor A               Public
 -----------                     ----------               ------
 Full portfolio access           Monthly viewing key      Nothing visible
-All trade history               Jan 2025 UTXO activity   Transfer happened (amount hidden)
+All trade history               Jan 2026 UTXO activity   Transfer happened (amount hidden)
 Generate keys for investors     Read-only, time-scoped   Cannot decrypt balances
 Revoke access anytime           Cannot see other months  Cannot see who transferred
 ```
@@ -225,7 +225,7 @@ Viewing keys are derived hierarchically:
 ```
 Master Viewing Key
     |
-    +-- 2025 (yearly key)
+    +-- 2026 (yearly key)
          |
          +-- January (monthly key) --> share with Investor A
          +-- February (monthly key) --> share with Auditor
